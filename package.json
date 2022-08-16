@@ -1,0 +1,25 @@
+{
+  "name": "opentodo",
+  "displayName": "opentodo",
+  "description": "A opensource todo text file language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "otd",
+      "aliases": ["OpenTodo", "otd"],
+      "extensions": [".otd",".opentodo"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "otd",
+      "scopeName": "source.otd",
+      "path": "./syntaxes/otd.tmLanguage.json"
+    }]
+  }
+}

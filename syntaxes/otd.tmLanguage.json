@@ -1,0 +1,113 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "OpenTodo",
+	"patterns": [
+		{
+			"include": "#inline-comment"
+		},
+		{
+			"include": "#meta"
+		},
+		{
+			"include": "#block"
+		},
+		{
+			"name": "markup.underline.link",
+			"match": "(http|https)://[^\\s]+"
+		},
+		{
+			"include": "#mention"
+		},
+		{
+			"include": "#instruction"
+		},
+		{
+			"include": "#sublist-doing"
+		},
+		{
+			"include": "#sublist-done"
+		},
+		{
+			"include": "#task-tag"
+		},
+		{
+			"include": "#status-tag"
+		}
+	],
+	"repository": {
+		"meta":{
+			"begin": "^---$",
+			"end": "^---$",
+			"patterns": [
+				{
+					"include": "source.yaml"
+				}
+			]
+		},
+		"block": {
+			"begin": "$^(.*)",
+			"end": "(.*)",
+			"beginCaptures": {},
+			"endCaptures": {
+				"1": {
+					"patterns": [
+						{
+							"include": "#deleted"
+						},
+						{
+							"include": "#datetime"
+						},
+						{
+							"include": "#inline-comment"
+						},
+						{
+							"match": "\\w*[^\\|](.*)",
+							"captures": {
+								"1": {
+									"name": "markup.heading"
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		"inline-comment": {
+			"name": "comment.line",
+			"match": "// .+$"
+		},
+		"datetime": {
+			"name": "variable.parameter",
+			"match": "^\\b\\d{4}-\\d{2}-\\d{2}\\b(\\W(->|<-)\\W\\d{4}-\\d{2}-\\d{2}\\b)?"
+		},
+		"task-tag": {
+			"name": "entity.name.type",
+			"match": " #[^\\s#]+"
+		},
+		"status-tag":{
+			"name": "invalid.illegal",
+			"match": " \\*[^\\s\\*]+\\*"
+		},
+		"deleted":{
+			"name": "comment.line",
+			"match": "^.*~.*"
+		},
+		"sublist-doing":{
+			"name": "markup.quote",
+			"match": "- \\[ \\].*"
+		},
+		"sublist-done":{
+			"name": "comment.line",
+			"match": "- \\[x\\].*"
+		},
+		"instruction":{
+			"name": "markup.bold",
+			"match": " ![\\w\\(\\), ]+"
+		},
+		"mention":{
+			"name": "keyword",
+			"match": " @[\\w\\(\\), ]+"
+		}
+	},
+	"scopeName": "source.otd"
+}
